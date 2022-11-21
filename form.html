@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        body {
+            padding: 50px 50px;
+            background-color: white;
+        }
+        .form_design{
+            font-size: 22px;
+        }   
+        .form_design input {
+            width: 50%;
+            padding: 12px 20px;
+            border: 0px solid blue;
+            border-radius: 20px;
+            font-size: 20px;
+            margin: 10px;
+            align-items: center;
+            justify-content: center;
+        }
+        .form_design input::placeholder {
+            text-align: center;
+        }
+        .form_error {
+            color: red;
+            font-size: 15px;
+        }
+        .button {
+            border-radius: 25px;
+            border: 0px solid black;
+            width: 300px;
+            height: 50px;
+            font-size: 22px;
+            margin: 20px 20px;
+            padding: 10px 10px;
+            justify-content: center;
+            align-items: center;
+        }
+        .button:hover {
+            background-color: rgba(165, 164, 164, 0.442);
+            cursor: pointer;
+        }
+        h1 {
+            color: rgb(3, 63, 3);
+        }
+        .form {
+            border: 0px solid black;
+            margin: 100px 40px;
+            border-radius: 70px;
+            padding: 30px 30px;
+            background-color: rgb(17, 252, 115);
+        }
+        #normal {
+            color: rgb(255, 47, 0);
+            font-size: 19px;
+        }
+        #normal:hover {
+            color: red;
+            cursor: pointer;
+        }
+        #image {
+            width: 30%;
+        }
+        #image{
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <div class="form">
+            <h1 id="heading">Register Here</h1>
+            <h1 id="normal">Already registered?</h1>
+            <form action="myaction.php" name="myform" onsubmit="return validate_form()" method="post">
+                <img id="image" src="img/male-removebg-preview.png" alt="*male logo">
+                <div class="form_design" id="name">
+                    <input type="text" name="fname" id="" required placeholder="Enter Your name"><b><br><span
+                            class="form_error"></span></b>
+                </div>
+                <div class="form_design" id="email">
+                    <input type="email" name="femail" id="" required placeholder="Enter E-mail here"><b><br><span
+                            class="form_error"> </span></b>
+                </div>
+                <div class="form_design" id="phno">
+                    <input type="phonenumber" name="fphno" id="" required placeholder="Enter Phone Number"><b><br><span
+                            class="form_error"> </span></b>
+                </div>
+                <div class="form_design" id="pass">
+                    <input type="password" name="fpass" id="" required placeholder="Password"><b><br><span
+                            class="form_error"></span></b>
+                </div>
+                <div class="form_design" id="cpass">
+                    <input type="password" name="fcpass" id="" required placeholder="Confirm Password"><b><br><span
+                            class="form_error"></span></b>
+                </div>
+                <input type="submit" class="button" value="Submit">
+    </center>
+    </div>
+    </div>
+    </form>
+    <script>
+        var click = document.getElementById("normal");
+        click.onclick = function () {
+            document.getElementById("heading").innerHTML = "Login Here";
+            const ele = document.getElementById("name");
+            ele.remove();
+            const ele1 = document.getElementById("phno");
+            ele1.remove();
+            const ele2 = document.getElementById("normal");
+            ele2.remove();
+        }
+        var click1 = document.getElementById("image");
+        click1.onclick = function () {
+                document.getElementById("image").src = "img/female-removebg-preview.png";
+        }
+        function set_error(id, error) {
+            element = document.getElementById(id);
+            element.getElementsByClassName("form_error")[0].innerHTML = error;
+        }
+        function clearErrors() {
+            errors = document.getElementsByClassName("form_error");
+            for (let item of errors) {
+                item.innerHTML = "";
+            }
+        }
+
+        function validate_form() {
+            var return_value = true;
+            clearErrors();
+            var name = document.forms["myform"]["fname"].value;
+            if (name.length < 5) {
+                set_error("name", "*Length of name is too short");
+                return_value = false;
+            }
+            var email = document.forms["myform"]["femail"].value;
+            if (email.length > 30) {
+                set_error("email", "*Length of Email is too long");
+                return_value = false;
+            }
+            var phno = document.forms["myform"]["fphno"].value;
+            if (phno.length != 10) {
+                set_error("phno", "*Phone number of should be 10 Digits");
+                return_value = false;
+            }
+            var pass = document.forms["myform"]["fpass"].value;
+            if (pass.length < 8 || pass.length > 20) {
+                set_error("pass", "*Enter password between 8 to 20 characters");
+                return_value = false;
+            }
+            var cpass = document.forms["myform"]["fcpass"].value;
+            if (cpass != pass) {
+                set_error("cpass", "*Password and Confirm password should be same");
+                return_value = false;  
+            }
+            const textNode = document.createTextNode("submitting");
+            document.body.appendChild(textNode);
+            sleep(2000);
+            return return_value;
+            }
+    </script>
+</body>
+</html>
